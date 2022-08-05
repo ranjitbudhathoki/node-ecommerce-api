@@ -1,13 +1,22 @@
-const dotenv = require("dotenv");
 const http = require("http");
-const app = require("./app");
 
+
+const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
+
+const app = require("./app");
+const mongoConnect = require("./services/mongo");
+
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 3000, () => {
-  console.log(`Server is listeming on port ${process.env.PORT}`);
-});
+async function startServer() {
+  await mongoConnect();
+  server.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is listeming on port ${process.env.PORT}`);
+  });
+}
+
+startServer()
 
 module.exports = app;

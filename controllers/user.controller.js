@@ -1,4 +1,4 @@
-const getAtUser = (req, res, next) => {
+const getAllUsers = (req, res, next) => {
   res.status(500),
     json({
       status: "fail",
