@@ -1,5 +1,5 @@
 const express = require("express");
-
+const productController = require("./../controllers/product.controller");
 const router = express.Router();
 
 router
@@ -14,5 +14,3 @@ router
   .delete(productController.deleteProduct);
 
 module.exports = router;
-
-
