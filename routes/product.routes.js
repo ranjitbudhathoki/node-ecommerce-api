@@ -4,15 +4,15 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(productController.getAllUsers)
-  .post(productController.createUser);
+  .get(productController.getAllProducts)
+  .post(productController.createProduct);
 
 router
   .route("/:id")
-  .get(productController.getUserById)
-  .patch(productController.updateUser)
-  .delete(productController.updateUser);
+  .get(productController.getProductById)
+  .patch(productController.updateProduct)
+  .delete(productController.deleteProduct);
 
 module.exports = router;
 
-console.log(router);
+
