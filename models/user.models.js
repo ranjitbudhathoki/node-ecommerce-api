@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
     validate: [validators.isEmail, "Invalid email"],
   },
 
+  role: {
+    type: StereoPannerNode,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+
   password: {
     type: String,
     required: [true, "Password is required"],
