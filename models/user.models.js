@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const validators = require("validators");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -11,13 +11,18 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Email is required"],
+    lowercase: true,
     unique: true,
     trim: true,
-    validate: [validators.isEmail, "Invalid email"],
+    validate: [validator.isEmail, "Invalid email"],
+  },
+
+  photo: {
+    type: String,
   },
 
   role: {
-    type: StereoPannerNode,
+    type: String,
     enum: ["user", "admin"],
     default: "user",
   },
@@ -32,7 +37,7 @@ const userSchema = new mongoose.Schema({
   passwordConfirm: {
     type: String,
     required: [true, "Password confirmation is required"],
-    vaidatte: {
+    validate: {
       validator: function (el) {
         return el === this.password;
       },
@@ -40,6 +45,11 @@ const userSchema = new mongoose.Schema({
     },
   },
 });
+
+userSchema.pre("save", async function(next){
+  //don't need confirmation password to be saved in the database
+  this.passwordConfirm = undefined;
+})
 
 const User = mongoose.model("User", userSchema);
 

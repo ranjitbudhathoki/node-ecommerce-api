@@ -1,29 +1,36 @@
-const getAllUsers = (req, res, next) => {
-  res.status(500),
-    json({
-      status: "fail",
-      message: "This route is not yet defined",
-    });
+const User = require("./../models/user.models");
+
+const getAllUsers = async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    status: "success",
+    result: users.length,
+    data: {
+      users,
+    },
+  });
 };
 
-const getUserById = (req, res, next) => {
-  res.status(500),
+const getUserById = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  res.status(200).
     json({
-      status: "fail",
-      message: "This route is not yet defined",
+      status: "success",
+      data:{
+        user
+      }
     });
 };
 
 const createUser = (req, res, next) => {
-  res.status(500),
-    json({
-      status: "fail",
-      message: "This route is not yet defined",
-    });
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined. Plese use /signup instead",
+  });
 };
 
 const updateUser = (req, res, next) => {
-  res.status(500),
+  res.status(203),
     json({
       status: "fail",
       message: "This route is not yet defined",
