@@ -1,10 +1,11 @@
 const globalErrorHandler = (err, req, res, next) => {
-  res.status(500).json({
-    status: "error",
-    message: err,
+  err.status = err.status || "error";
+  err.statusCode = err.statusCode || 500;
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
   });
-  next()
+  next();
 };
-
 
 module.exports = globalErrorHandler;
